@@ -1,0 +1,377 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Walker Rocha · IA aplicada a produto</title>
+<meta name="description" content="Walker Rocha constrói soluções com IA de ponta a ponta: do problema de negócio ao produto no ar. Casos, resultados e stack.">
+<meta property="og:title" content="Walker Rocha · IA aplicada a produto">
+<meta property="og:description" content="Do problema de negócio ao produto no ar, com IA. Produtos publicados, ferramentas internas e dados.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F5F3EE; --surface:#FFFFFF; --ink:#15171B; --ink-2:#3B4048; --muted:#6A6F78;
+  --line:#E3DFD6; --accent:#B8410E; --accent-soft:#F6E6DC; --ok:#1F7A4D; --ok-soft:#E2F2E8;
+  --warn:#8A5A00; --warn-soft:#F7EDD6;
+  --serif:"Instrument Serif",Georgia,serif; --sans:Inter,system-ui,-apple-system,"Segoe UI",sans-serif; --mono:"JetBrains Mono",ui-monospace,monospace;
+  --r:14px; --max:1120px;
+}
+@media (prefers-color-scheme:dark){
+  :root{--bg:#0F1012; --surface:#17191C; --ink:#EDEBE6; --ink-2:#C9C7C1; --muted:#9097A0; --line:#2A2D32;
+    --accent:#F08A4B; --accent-soft:#2B1D14; --ok:#5BC48E; --ok-soft:#14261C; --warn:#E3B45A; --warn-soft:#2A2214;}
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font:400 16px/1.6 var(--sans);-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
+.mono{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+
+/* nav */
+nav{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:60px}
+.brand{font-family:var(--serif);font-size:22px;text-decoration:none}
+nav ul{display:flex;gap:28px;list-style:none}
+nav ul a{text-decoration:none;font-size:14px;color:var(--ink-2)}
+nav ul a:hover{color:var(--accent)}
+
+/* hero */
+.hero{padding:88px 0 64px;display:grid;grid-template-columns:1.35fr .9fr;gap:56px;align-items:end}
+.hero h1{font-family:var(--serif);font-weight:400;font-size:clamp(42px,6vw,72px);line-height:1.02;letter-spacing:-.01em;margin:18px 0 22px}
+.hero h1 em{color:var(--accent)}
+.lead{font-size:18px;color:var(--ink-2);max-width:560px}
+.cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:11px 18px;border-radius:999px;font-size:14px;font-weight:500;text-decoration:none;border:1px solid var(--line);background:var(--surface)}
+.btn.primary{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.btn:hover{border-color:var(--accent)}
+.stats{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:8px 24px}
+.stat{display:flex;align-items:baseline;gap:16px;padding:16px 0;border-bottom:1px solid var(--line)}
+.stat:last-child{border-bottom:0}
+.stat b{font-family:var(--serif);font-weight:400;font-size:40px;line-height:1;min-width:112px}
+.stat span{font-size:14px;color:var(--ink-2)}
+
+/* sections */
+section{padding:72px 0;border-top:1px solid var(--line)}
+.sec-head{display:grid;grid-template-columns:220px 1fr;gap:40px;margin-bottom:40px}
+.sec-head h2{font-family:var(--serif);font-weight:400;font-size:clamp(32px,4vw,44px);line-height:1.08}
+.sec-head p{color:var(--ink-2);max-width:620px;margin-top:10px}
+
+/* method */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;counter-reset:s}
+.step{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:22px}
+.step::before{counter-increment:s;content:"0" counter(s);font-family:var(--mono);font-size:12px;color:var(--accent)}
+.step h3{font-size:16px;font-weight:600;margin:10px 0 6px}
+.step p{font-size:14px;color:var(--ink-2)}
+
+/* cases */
+.case{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:36px;margin-bottom:24px;display:grid;grid-template-columns:1fr 1fr;gap:40px}
+.case.feature{grid-template-columns:1.1fr .9fr}
+.case-top{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-bottom:14px}
+.badge{font-family:var(--mono);font-size:11px;letter-spacing:.04em;text-transform:uppercase;padding:4px 10px;border-radius:999px;background:var(--accent-soft);color:var(--accent)}
+.badge.ok{background:var(--ok-soft);color:var(--ok)}
+.badge.warn{background:var(--warn-soft);color:var(--warn)}
+.case h3{font-family:var(--serif);font-weight:400;font-size:34px;line-height:1.1;margin-bottom:10px}
+.case .one{color:var(--ink-2);margin-bottom:22px}
+.result{display:flex;gap:14px;align-items:center;padding:14px 16px;border-radius:12px;background:var(--bg);border:1px solid var(--line);margin-bottom:22px}
+.result b{font-family:var(--serif);font-weight:400;font-size:30px;line-height:1;color:var(--accent);white-space:nowrap}
+.result span{font-size:14px;color:var(--ink-2)}
+dl{display:grid;gap:14px}
+dt{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+dd{font-size:15px;color:var(--ink-2)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:20px}
+.chip{font-size:12px;padding:4px 10px;border:1px solid var(--line);border-radius:999px;color:var(--ink-2)}
+.links{display:flex;flex-wrap:wrap;gap:16px;margin-top:20px;font-size:14px;font-weight:500}
+.links a{text-decoration:none;border-bottom:1px solid var(--accent);padding-bottom:1px}
+.private{font-size:13px;color:var(--muted);margin-top:20px}
+
+/* flow visual */
+.flow{display:flex;flex-direction:column;gap:10px;justify-content:center}
+.node{display:flex;align-items:center;gap:12px;background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:12px 14px;font-size:14px}
+.node i{font-style:normal;font-family:var(--mono);font-size:11px;color:var(--accent);min-width:22px}
+.node small{display:block;color:var(--muted);font-size:12px}
+.arrow{align-self:center;width:1px;height:12px;background:var(--line)}
+.shot{border-radius:12px;overflow:hidden;border:1px solid var(--line);background:#0b0d0f}
+.shot img{display:block;width:100%;height:auto}
+.caption{font-size:12px;color:var(--muted);margin-top:8px}
+.scores{display:grid;gap:8px}
+.score{display:grid;grid-template-columns:34px 1fr;gap:10px;align-items:center;font-size:12px;font-family:var(--mono);color:var(--muted)}
+.bar{height:8px;border-radius:99px;background:var(--line);overflow:hidden}
+.bar span{display:block;height:100%;background:var(--accent)}
+
+/* data table */
+.rows{border:1px solid var(--line);border-radius:var(--r);background:var(--surface);overflow:hidden}
+.row{display:grid;grid-template-columns:1.1fr 2fr .8fr;gap:24px;padding:20px 24px;border-bottom:1px solid var(--line);align-items:start}
+.row:last-child{border-bottom:0}
+.row h4{font-size:15px;font-weight:600}
+.row h4 a{text-decoration:none}
+.row h4 a:hover{color:var(--accent)}
+.row p{font-size:14px;color:var(--ink-2)}
+.row .mono{text-transform:none;letter-spacing:0;font-size:12px}
+
+/* stack */
+.stack{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.col{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:22px}
+.col h3{font-size:14px;font-weight:600;margin-bottom:12px}
+.col ul{list-style:none;display:grid;gap:6px;font-size:14px;color:var(--ink-2)}
+
+/* about + footer */
+.about{display:grid;grid-template-columns:220px 1fr 1fr;gap:40px}
+.about p{color:var(--ink-2)}
+.facts{display:grid;gap:12px;font-size:14px}
+.facts div{display:flex;justify-content:space-between;gap:16px;border-bottom:1px solid var(--line);padding-bottom:10px}
+.facts span:first-child{color:var(--muted)}
+footer{padding:72px 0 48px;border-top:1px solid var(--line)}
+footer h2{font-family:var(--serif);font-weight:400;font-size:clamp(34px,5vw,56px);line-height:1.05;margin-bottom:24px}
+.foot-note{margin-top:48px;font-size:13px;color:var(--muted)}
+
+@media (max-width:900px){
+  nav ul{display:none}
+  .hero,.case,.case.feature,.sec-head,.about{grid-template-columns:1fr;gap:28px}
+  .hero{padding:56px 0 40px}
+  .steps,.stack{grid-template-columns:1fr 1fr}
+  .row{grid-template-columns:1fr;gap:6px}
+  .case{padding:24px}
+}
+@media (max-width:560px){
+  .wrap{padding:0 16px}
+  .steps,.stack{grid-template-columns:1fr}
+  .case h3{font-size:28px}
+  .stat b{font-size:34px;min-width:96px}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="brand" href="#top">Walker Rocha</a>
+    <ul>
+      <li><a href="#metodo">Método</a></li>
+      <li><a href="#casos">Casos</a></li>
+      <li><a href="#dados">Dados</a></li>
+      <li><a href="#stack">Stack</a></li>
+      <li><a href="#contato">Contato</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main id="top" class="wrap">
+  <header class="hero">
+    <div>
+      <p class="mono">IA aplicada a produto · Belo Horizonte, MG</p>
+      <h1>Do problema de negócio ao produto <em>no ar</em>, com IA.</h1>
+      <p class="lead">Sou desenvolvedor júnior na Assurance IT e estudo Ciência de Dados e IA na PUC Minas. Uso IA para construir, como parte do produto e para automatizar processos, e valido cada entrega com dados.</p>
+      <div class="cta">
+        <a class="btn primary" href="#casos">Ver os casos</a>
+        <a class="btn" href="https://github.com/WalkerRocha">GitHub</a>
+        <a class="btn" href="https://www.linkedin.com/in/walker-rocha-09a86525b/">LinkedIn</a>
+      </div>
+    </div>
+    <aside class="stats" aria-label="Resultados">
+      <div class="stat"><b>2</b><span>produtos próprios publicados, construídos sozinho</span></div>
+      <div class="stat"><b>6</b><span>clientes pagantes somando os dois produtos</span></div>
+      <div class="stat"><b>13</b><span>dias para tirar do zero uma POC de busca de talentos com IA</span></div>
+      <div class="stat"><b>45/45</b><span>verificações de segurança aprovadas no banco dessa POC</span></div>
+    </aside>
+  </header>
+
+  <section id="metodo">
+    <div class="sec-head">
+      <p class="mono">Método</p>
+      <div>
+        <h2>Como eu construo com IA</h2>
+        <p>A IA acelera a construção. O que garante o resultado é entender o problema, especificar bem e validar antes de entregar.</p>
+      </div>
+    </div>
+    <div class="steps">
+      <div class="step"><h3>Entender o problema</h3><p>Ouço quem sofre com ele e traduzo a dor em requisito, regra de negócio e critério de sucesso.</p></div>
+      <div class="step"><h3>Especificar para a IA</h3><p>Contexto, regras, restrições, o que não pode quebrar e critérios de aceite, antes de pedir qualquer código.</p></div>
+      <div class="step"><h3>Construir e validar</h3><p>Construo com Lovable, Claude e GPT, simulo antes de alterar dados reais e reviso o resultado em amostras.</p></div>
+      <div class="step"><h3>Colocar no ar e medir</h3><p>Publico, acompanho o uso e decido o próximo passo pelo que os números mostram, inclusive custo.</p></div>
+    </div>
+  </section>
+
+  <section id="casos">
+    <div class="sec-head">
+      <p class="mono">Casos</p>
+      <div>
+        <h2>O que construí</h2>
+        <p>Dois produtos meus, publicados e com clientes, e três frentes da Assurance IT. Projetos da empresa aparecem sem código, dados ou nomes de clientes.</p>
+      </div>
+    </div>
+
+    <article class="case feature">
+      <div>
+        <div class="case-top"><span class="badge ok">Publicado</span><span class="badge">Produto próprio</span><span class="mono">01</span></div>
+        <h3>Plantão ENEM IA</h3>
+        <p class="one">Plataforma de estudos para o ENEM com IA embutida, construída sozinho do zero até a publicação.</p>
+        <div class="result"><b>2</b><span>assinantes pagantes, com pagamento via PIX</span></div>
+        <dl>
+          <div><dt>Problema</dt><dd>Quem estuda sozinho para o ENEM tem pouco acesso a correção de redação e a alguém para tirar dúvidas na hora.</dd></div>
+          <div><dt>O que construí</dt><dd>Tutor por área do conhecimento que responde em texto ou a partir da foto da questão; correção de redação pelas 5 competências do ENEM; 5 planos com liberação de recursos; pagamento via Mercado Pago com webhook que ativa a assinatura.</dd></div>
+          <div><dt>Papel da IA</dt><dd>Lovable para construir o produto; GPT-4o dentro dele, com um prompt de especialista por área e saída em JSON estruturado na correção.</dd></div>
+        </dl>
+        <div class="chips"><span class="chip">GPT-4o</span><span class="chip">Lovable</span><span class="chip">React</span><span class="chip">Supabase</span><span class="chip">Edge Functions</span><span class="chip">Mercado Pago</span></div>
+        <div class="links"><a href="https://github.com/WalkerRocha/plantao-enem-ia">Código e arquitetura</a></div>
+      </div>
+      <div class="flow" aria-label="Como a correção de redação funciona">
+        <div class="node"><i>01</i><div>Aluno envia a redação<small>React + Supabase Auth</small></div></div>
+        <div class="arrow"></div>
+        <div class="node"><i>02</i><div>Edge Function chama o GPT-4o<small>prompt de corretor ENEM, temperatura 0,3</small></div></div>
+        <div class="arrow"></div>
+        <div class="node"><i>03</i><div>Resposta em JSON fixo<small>nota por competência, pontos fortes, a melhorar, dicas</small></div></div>
+        <div class="arrow"></div>
+        <div class="node" style="display:block">
+          <div class="scores" aria-hidden="true">
+            <div class="score">C1<div class="bar"><span style="width:80%"></span></div></div>
+            <div class="score">C2<div class="bar"><span style="width:60%"></span></div></div>
+            <div class="score">C3<div class="bar"><span style="width:70%"></span></div></div>
+            <div class="score">C4<div class="bar"><span style="width:90%"></span></div></div>
+            <div class="score">C5<div class="bar"><span style="width:50%"></span></div></div>
+          </div>
+          <p class="caption">Ilustração do formato da correção (0–200 por competência).</p>
+        </div>
+      </div>
+    </article>
+
+    <article class="case feature">
+      <div>
+        <div class="case-top"><span class="badge warn">POC em avaliação</span><span class="badge">Assurance IT</span><span class="mono">02</span></div>
+        <h3>Banco de Talentos com busca por vaga</h3>
+        <p class="one">Anos de currículos soltos em pastas viraram um banco pesquisável que indica os candidatos mais aderentes a cada vaga.</p>
+        <div class="result"><b>"ótima POC"</b><span>avaliação da gestão, que repassou as fichas às recrutadoras</span></div>
+        <dl>
+          <div><dt>Problema</dt><dd>Dezenas de milhares de currículos em PDF e Word, com cópias, versões antigas e anotações internas misturadas. Nenhuma forma de cruzar a base com uma vaga aberta.</dd></div>
+          <div><dt>O que construí</dt><dd>Conversão e carga no PostgreSQL, deduplicação em 3 camadas, extração de competências por regras, área interna para dados confidenciais e uma pontuação vaga–candidato que gera fichas com os 5 mais aderentes.</dd></div>
+          <div><dt>Papel da IA</dt><dd>Claude como assistente de código, sob regras fixas: explicar, simular, esperar meu OK e só então alterar o banco. Testei extração por LLM e troquei por regras ao estimar o custo para a base inteira.</dd></div>
+        </dl>
+        <div class="chips"><span class="chip">Claude</span><span class="chip">PostgreSQL</span><span class="chip">Supabase · RLS</span><span class="chip">Node.js</span><span class="chip">Python</span><span class="chip">LGPD</span></div>
+        <p class="private">Código e dados privados da empresa.</p>
+      </div>
+      <div class="flow" aria-label="Etapas do Banco de Talentos">
+        <div class="node"><i>01</i><div>Arquivos soltos → texto<small>PDF, DOCX e DOC; repetidos descartados por hash</small></div></div>
+        <div class="arrow"></div>
+        <div class="node"><i>02</i><div>Banco estruturado<small>candidatos, versões de CV, competências, formação</small></div></div>
+        <div class="arrow"></div>
+        <div class="node"><i>03</i><div>Proteção e limpeza<small>RLS em todas as tabelas, 12 migrações reversíveis</small></div></div>
+        <div class="arrow"></div>
+        <div class="node"><i>04</i><div>Pontuação por vaga<small>11 vagas prioritárias, 5 candidatos por vaga</small></div></div>
+      </div>
+    </article>
+
+    <article class="case">
+      <div>
+        <div class="case-top"><span class="badge ok">Publicado</span><span class="badge">Produto próprio</span><span class="mono">03</span></div>
+        <h3>Do Zero ao Mercado</h3>
+        <p class="one">Produto de educação financeira lançado sozinho: conteúdo, ferramenta de treino, página de vendas e funil de ofertas.</p>
+        <div class="result"><b>4</b><span>clientes pagantes</span></div>
+        <dl>
+          <div><dt>O que construí</dt><dd>4 e-books, vídeo de apresentação, página de vendas com escada de ofertas, upsell pós-compra e entrega automática pela Kiwify.</dd></div>
+          <div><dt>Papel da IA</dt><dd>Desenvolvi a ferramenta de treino do começo ao fim com IA: gráficos de candles com indicadores, valores fictícios e explicação ao fim de cada exercício, rodando direto no navegador.</dd></div>
+        </dl>
+        <div class="chips"><span class="chip">Desenvolvimento com IA</span><span class="chip">HTML · CSS · JS</span><span class="chip">Funil de vendas</span><span class="chip">Kiwify</span></div>
+        <div class="links"><a href="https://walkerrocha.github.io/dozeroaomercado/">Página no ar</a><a href="https://github.com/WalkerRocha/dozeroaomercado">Estudo de caso</a></div>
+      </div>
+      <div>
+        <div class="shot"><img src="/dozeroaomercado/img/ferramenta.webp" alt="Ferramenta de treino com gráfico de candles, médias móveis e volume" width="520" height="336" loading="lazy"></div>
+        <p class="caption">A ferramenta de treino, construída com IA.</p>
+      </div>
+    </article>
+
+    <article class="case">
+      <div>
+        <div class="case-top"><span class="badge ok">Em produção</span><span class="badge">Assurance IT</span><span class="mono">04</span></div>
+        <h3>Plataformas internas de recrutamento e projetos</h3>
+        <p class="one">Evoluo as ferramentas que as recrutadoras e a área de projetos usam no dia a dia, transformando pedidos em funcionalidades.</p>
+        <dl>
+          <div><dt>O que construí</dt><dd>Atualização e duplicação de vagas em lote, filtros com busca parcial, ciclo de vida de vagas encerradas, auditoria com acesso por perfil e o fluxo do CRM até a execução dos projetos.</dd></div>
+          <div><dt>Um problema real</dt><dd>A duplicação de vagas quebrava por violar uma chave única no banco. Separei o identificador externo do interno e a cópia passou a nascer independente da original.</dd></div>
+        </dl>
+      </div>
+      <div>
+        <dl>
+          <div><dt>Papel da IA</dt><dd>Lovable para implementar. Cada pedido vira uma especificação com contexto, regras de negócio, permissões, o que não pode mudar e critérios de aceite.</dd></div>
+        </dl>
+        <div class="chips"><span class="chip">Lovable</span><span class="chip">Supabase</span><span class="chip">Regras de negócio</span><span class="chip">Controle de acesso</span><span class="chip">Testes funcionais</span></div>
+        <p class="private">Plataformas internas: sem telas ou dados públicos.</p>
+      </div>
+    </article>
+
+    <article class="case">
+      <div>
+        <div class="case-top"><span class="badge">Entregue</span><span class="badge">Assurance IT</span><span class="mono">05</span></div>
+        <h3>Documentação de sistemas SAP com IA</h3>
+        <p class="one">Uso IA para ler código ABAP legado e produzir especificações funcionais e técnicas fiéis ao que o programa realmente faz.</p>
+        <div class="result"><b>7</b><span>programas analisados e documentados (vendas, finanças, listas técnicas e usuários)</span></div>
+      </div>
+      <div>
+        <dl>
+          <div><dt>Como</dt><dd>A IA acelera a leitura do código; eu valido cada regra, tabela, validação e integração contra o código-fonte antes de entrar no documento.</dd></div>
+        </dl>
+        <div class="chips"><span class="chip">SAP · ABAP</span><span class="chip">IDoc · RFC · ALV</span><span class="chip">Engenharia reversa</span><span class="chip">Documentação</span></div>
+      </div>
+    </article>
+  </section>
+
+  <section id="dados">
+    <div class="sec-head">
+      <p class="mono">Dados</p>
+      <div>
+        <h2>Base em dados e machine learning</h2>
+        <p>Da formação em Ciência de Dados e IA, com código público.</p>
+      </div>
+    </div>
+    <div class="rows">
+      <div class="row"><h4><a href="https://github.com/WalkerRocha/Artigo_Dpoc_em_Idosos">DPOC em idosos brasileiros ↗</a></h4><p>Fatores associados à DPOC com microdados da PNS 2019. Árvore de Decisão, Random Forest e Balanced Random Forest em base desbalanceada, com artigo completo.</p><span class="mono">Python · ML</span></div>
+      <div class="row"><h4><a href="https://github.com/WalkerRocha/ppl-cd-pcd-sist-int-2025-1-regional-disparities-data-mkt">Mercado de Ciência de Dados ↗</a></h4><p>Análise do State of Data Brazil 2023 em equipe, com exploração da base e modelos de classificação.</p><span class="mono">Python · Jupyter</span></div>
+      <div class="row"><h4>BI e Data Warehouse</h4><p>ETL em Python e SQL para uma empresa parceira, consolidando fontes distintas em um Data Warehouse com dashboards no Power BI.</p><span class="mono">Python · SQL · Power BI</span></div>
+      <div class="row"><h4><a href="https://github.com/WalkerRocha/Projeto_de_banco_de_dados-_ll_">Banco de Dados Escola Help ↗</a></h4><p>Modelagem conceitual, lógica e física de um sistema acadêmico de matrículas, em equipe.</p><span class="mono">SQL</span></div>
+      <div class="row"><h4>Pesquisa sobre criminalidade</h4><p>Grupo de Pesquisa em Ciência de Dados da PUC Minas: integração, limpeza e validação de bases públicas heterogêneas.</p><span class="mono">Tratamento de dados</span></div>
+    </div>
+  </section>
+
+  <section id="stack">
+    <div class="sec-head">
+      <p class="mono">Stack</p>
+      <div><h2>Ferramentas que uso</h2></div>
+    </div>
+    <div class="stack">
+      <div class="col"><h3>Construir com IA</h3><ul><li>Lovable</li><li>Claude</li><li>ChatGPT e GPTs customizados</li><li>APIs da OpenAI e da Anthropic</li></ul></div>
+      <div class="col"><h3>Automação e back-end</h3><ul><li>n8n</li><li>Supabase · Edge Functions</li><li>APIs REST e webhooks</li><li>Google Apps Script</li></ul></div>
+      <div class="col"><h3>Dados</h3><ul><li>Python</li><li>SQL · PostgreSQL</li><li>Power BI · ETL</li><li>Machine learning</li></ul></div>
+      <div class="col"><h3>Produto e negócio</h3><ul><li>Requisitos e regras de negócio</li><li>Testes funcionais</li><li>Pagamentos (Mercado Pago, Kiwify)</li><li>Segurança de dados e LGPD</li></ul></div>
+    </div>
+  </section>
+
+  <section id="sobre">
+    <div class="about">
+      <p class="mono">Sobre</p>
+      <p>Comecei na Assurance IT em dezembro de 2024 e hoje divido o tempo entre plataformas internas, automação e projetos de IA. Fora do trabalho, lancei dois produtos próprios para aprender o ciclo inteiro: construir, cobrar e entregar.</p>
+      <div class="facts">
+        <div><span>Atual</span><span>Desenvolvedor Júnior, Assurance IT</span></div>
+        <div><span>Formação</span><span>Ciência de Dados e IA, PUC Minas</span></div>
+        <div><span>Conclusão prevista</span><span>dez/2028</span></div>
+        <div><span>Base</span><span>Belo Horizonte, MG</span></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer id="contato">
+  <div class="wrap">
+    <p class="mono">Contato</p>
+    <h2>Vamos conversar sobre o que dá<br>para construir com IA.</h2>
+    <div class="cta">
+      <a class="btn primary" href="mailto:walker.investimentos31@gmail.com">walker.investimentos31@gmail.com</a>
+      <a class="btn" href="https://www.linkedin.com/in/walker-rocha-09a86525b/">LinkedIn</a>
+      <a class="btn" href="https://github.com/WalkerRocha">GitHub</a>
+    </div>
+    <p class="foot-note">Este site também foi construído com IA. © 2026 Walker Rocha</p>
+  </div>
+</footer>
+
+</body>
+</html>
