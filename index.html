@@ -25,6 +25,7 @@
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
+html,body{overflow-x:clip}
 body{background:var(--bg);color:var(--ink);font:400 16px/1.6 var(--sans);-webkit-font-smoothing:antialiased}
 a{color:inherit}
 .wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
@@ -39,7 +40,7 @@ nav ul a{text-decoration:none;font-size:14px;color:var(--ink-2)}
 nav ul a:hover{color:var(--accent)}
 
 /* hero */
-.hero{padding:88px 0 64px;display:grid;grid-template-columns:1.35fr .9fr;gap:56px;align-items:end}
+.hero{position:relative;padding:104px 0 64px;max-width:900px}
 .hero h1{font-family:var(--serif);font-weight:400;font-size:clamp(42px,6vw,72px);line-height:1.02;letter-spacing:-.01em;margin:18px 0 22px}
 .hero h1 em{color:var(--accent)}
 .lead{font-size:18px;color:var(--ink-2);max-width:560px}
@@ -141,6 +142,52 @@ footer h2{font-family:var(--serif);font-weight:400;font-size:clamp(34px,5vw,56px
   .case h3{font-size:28px}
   .stat b{font-size:34px;min-width:96px}
 }
+
+/* motion */
+.progress{position:fixed;top:0;left:0;height:2px;width:100%;background:var(--accent);transform-origin:0 50%;transform:scaleX(0);z-index:20}
+.glow{position:absolute;inset:-40px -20vw 0 -10vw;z-index:-1;overflow:hidden;pointer-events:none}
+.glow i{position:absolute;border-radius:50%;filter:blur(70px);opacity:.55}
+.glow i:nth-child(1){width:420px;height:420px;background:var(--accent-soft);top:10%;right:0;animation:drift1 16s ease-in-out infinite alternate}
+.glow i:nth-child(2){width:320px;height:320px;background:var(--ok-soft);top:45%;right:22%;animation:drift2 19s ease-in-out infinite alternate}
+.glow i:nth-child(3){width:260px;height:260px;background:var(--warn-soft);top:0;right:35%;animation:drift3 22s ease-in-out infinite alternate}
+@keyframes drift1{to{transform:translate(-120px,60px) scale(1.15)}}
+@keyframes drift2{to{transform:translate(140px,-50px) scale(.9)}}
+@keyframes drift3{to{transform:translate(-80px,90px) scale(1.2)}}
+.hero-in>*{opacity:0;transform:translateY(18px);animation:up .8s cubic-bezier(.2,.7,.2,1) forwards}
+.hero-in>*:nth-child(2){animation-delay:.08s}.hero-in>*:nth-child(3){animation-delay:.18s}.hero-in>*:nth-child(4){animation-delay:.28s}.hero-in>*:nth-child(5){animation-delay:.38s}
+@keyframes up{to{opacity:1;transform:none}}
+.rotline{margin-top:22px;font-size:18px;color:var(--ink-2)}
+#rot{color:var(--ink);font-weight:600;border-bottom:2px solid var(--accent)}
+.caret{display:inline-block;width:2px;height:1.1em;background:var(--accent);margin-left:3px;vertical-align:-3px;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.marquee{overflow:hidden;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:16px 0;-webkit-mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent);mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent)}
+.track{display:flex;gap:48px;width:max-content;animation:scroll 40s linear infinite}
+.track span{font-family:var(--serif);font-size:26px;color:var(--muted);white-space:nowrap}
+.track span::after{content:"✦";font-size:12px;margin-left:48px;color:var(--accent);vertical-align:middle}
+.marquee:hover .track{animation-play-state:paused}
+@keyframes scroll{to{transform:translateX(-50%)}}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1)}
+.reveal.in{opacity:1;transform:none}
+.case,.step,.col{transition:transform .35s ease,box-shadow .35s ease,border-color .35s ease,opacity .8s cubic-bezier(.2,.7,.2,1)}
+.case:hover,.step:hover,.col:hover{transform:translateY(-4px);box-shadow:0 18px 40px -24px rgba(0,0,0,.25);border-color:color-mix(in srgb,var(--accent) 35%,var(--line))}
+.reveal.in:hover{transform:translateY(-4px)}
+.flow .node{opacity:0;transform:translateX(16px);transition:opacity .6s ease,transform .6s ease}
+.in .flow .node{opacity:1;transform:none}
+.in .flow .node:nth-child(3){transition-delay:.15s}.in .flow .node:nth-child(5){transition-delay:.3s}.in .flow .node:nth-child(7){transition-delay:.45s}
+.arrow{position:relative;overflow:visible}
+.arrow::after{content:"";position:absolute;left:-3px;top:-2px;width:7px;height:7px;border-radius:50%;background:var(--accent);animation:drip 1.8s ease-in infinite}
+@keyframes drip{0%{transform:translateY(0);opacity:0}30%{opacity:1}100%{transform:translateY(12px);opacity:0}}
+.node{transition:border-color .4s ease,background .4s ease}
+.node.on{border-color:var(--accent);background:var(--accent-soft)}
+.bar span{transform:scaleX(0);transform-origin:0 50%;transition:transform 1.2s cubic-bezier(.2,.7,.2,1) .4s}
+.in .bar span{transform:scaleX(1)}
+.result b{display:inline-block}
+.in .result b{animation:pop .7s cubic-bezier(.2,.7,.2,1) .3s both}
+@keyframes pop{from{transform:scale(.6);opacity:0}to{transform:none;opacity:1}}
+.btn{transition:transform .2s ease,border-color .2s ease}
+.btn:hover{transform:translateY(-2px)}
+@media (max-width:560px){.track span{font-size:20px}.glow{inset:-40px -40vw 0 -20vw}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.hero-in>*,.reveal,.flow .node{opacity:1!important;transform:none!important}.bar span{transform:none}.caret{display:none}}
 </style>
 </head>
 <body>
@@ -160,23 +207,22 @@ footer h2{font-family:var(--serif);font-weight:400;font-size:clamp(34px,5vw,56px
 
 <main id="top" class="wrap">
   <header class="hero">
-    <div>
+    <div class="glow" aria-hidden="true"><i></i><i></i><i></i></div>
+    <div class="hero-in">
       <p class="mono">IA aplicada a produto · Belo Horizonte, MG</p>
       <h1>Do problema de negócio ao produto <em>no ar</em>, com IA.</h1>
       <p class="lead">Sou desenvolvedor júnior na Assurance IT e estudo Ciência de Dados e IA na PUC Minas. Uso IA para construir, como parte do produto e para automatizar processos, e valido cada entrega com dados.</p>
+      <p class="rotline">Hoje construo <span id="rot">produtos com clientes pagantes</span><span class="caret" aria-hidden="true"></span></p>
       <div class="cta">
         <a class="btn primary" href="#casos">Ver os casos</a>
         <a class="btn" href="https://github.com/WalkerRocha">GitHub</a>
         <a class="btn" href="https://www.linkedin.com/in/walker-rocha-09a86525b/">LinkedIn</a>
       </div>
     </div>
-    <aside class="stats" aria-label="Resultados">
-      <div class="stat"><b>2</b><span>produtos próprios publicados, construídos sozinho</span></div>
-      <div class="stat"><b>6</b><span>clientes pagantes somando os dois produtos</span></div>
-      <div class="stat"><b>13</b><span>dias para construir do zero um banco de talentos com IA, hoje em uso</span></div>
-      <div class="stat"><b>45/45</b><span>verificações de segurança aprovadas nesse banco</span></div>
-    </aside>
   </header>
+</main>
+<div class="marquee" aria-hidden="true"><div class="track"><span>Lovable</span><span>Claude Code</span><span>Codex</span><span>GPT-4o</span><span>Claude</span><span>n8n</span><span>Supabase</span><span>PostgreSQL</span><span>Python</span><span>JavaScript</span><span>SQL</span><span>Power BI</span><span>Mercado Pago</span><span>Edge Functions</span><span>Lovable</span><span>Claude Code</span><span>Codex</span><span>GPT-4o</span><span>Claude</span><span>n8n</span><span>Supabase</span><span>PostgreSQL</span><span>Python</span><span>JavaScript</span><span>SQL</span><span>Power BI</span><span>Mercado Pago</span><span>Edge Functions</span></div></div>
+<main class="wrap">
 
   <section id="metodo">
     <div class="sec-head">
@@ -374,5 +420,33 @@ footer h2{font-family:var(--serif);font-weight:400;font-size:clamp(34px,5vw,56px
   </div>
 </footer>
 
+<div class="progress" aria-hidden="true"></div>
+<script>
+(function(){
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var bar=document.querySelector('.progress');
+  function onScroll(){var h=document.documentElement;var p=h.scrollTop/(h.scrollHeight-h.clientHeight||1);bar.style.transform='scaleX('+p+')';}
+  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  var els=document.querySelectorAll('.sec-head,.step,.case,.row,.col,.about,footer .wrap');
+  if('IntersectionObserver' in window && !reduce){
+    els.forEach(function(el){el.classList.add('reveal');});
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.12,rootMargin:'0px 0px -40px 0px'});
+    els.forEach(function(el){io.observe(el);});
+  } else { els.forEach(function(el){el.classList.add('in');}); }
+  document.querySelectorAll('.flow').forEach(function(f){
+    var nodes=f.querySelectorAll('.node');var i=0;
+    if(reduce||!nodes.length)return;
+    setInterval(function(){nodes.forEach(function(n){n.classList.remove('on');});nodes[i%nodes.length].classList.add('on');i++;},1400);
+  });
+  var words=['produtos com clientes pagantes','ferramentas internas em uso','busca de talentos com IA','automações que tiram trabalho manual','análises com machine learning'];
+  var el=document.getElementById('rot');if(!el||reduce)return;
+  var w=0,c=words[0].length,del=true;
+  function tick(){var word=words[w];
+    if(del){c--;el.textContent=word.slice(0,c);if(c<=0){del=false;w=(w+1)%words.length;}setTimeout(tick,28);}
+    else{var nw=words[w];c++;el.textContent=nw.slice(0,c);if(c>=nw.length){del=true;setTimeout(tick,2200);}else setTimeout(tick,55);}
+  }
+  setTimeout(tick,2600);
+})();
+</script>
 </body>
 </html>
