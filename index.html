@@ -173,8 +173,8 @@ footer h2{font-family:var(--serif);font-weight:400;font-size:clamp(34px,5vw,56px
     <aside class="stats" aria-label="Resultados">
       <div class="stat"><b>2</b><span>produtos próprios publicados, construídos sozinho</span></div>
       <div class="stat"><b>6</b><span>clientes pagantes somando os dois produtos</span></div>
-      <div class="stat"><b>13</b><span>dias para tirar do zero uma POC de busca de talentos com IA</span></div>
-      <div class="stat"><b>45/45</b><span>verificações de segurança aprovadas no banco dessa POC</span></div>
+      <div class="stat"><b>13</b><span>dias para construir do zero um banco de talentos com IA, hoje em uso</span></div>
+      <div class="stat"><b>45/45</b><span>verificações de segurança aprovadas nesse banco</span></div>
     </aside>
   </header>
 
@@ -189,7 +189,7 @@ footer h2{font-family:var(--serif);font-weight:400;font-size:clamp(34px,5vw,56px
     <div class="steps">
       <div class="step"><h3>Entender o problema</h3><p>Ouço quem sofre com ele e traduzo a dor em requisito, regra de negócio e critério de sucesso.</p></div>
       <div class="step"><h3>Especificar para a IA</h3><p>Contexto, regras, restrições, o que não pode quebrar e critérios de aceite, antes de pedir qualquer código.</p></div>
-      <div class="step"><h3>Construir e validar</h3><p>Construo com Lovable, Claude e GPT, simulo antes de alterar dados reais e reviso o resultado em amostras.</p></div>
+      <div class="step"><h3>Construir e validar</h3><p>Construo com Lovable, Claude Code, Codex e GPT, simulo antes de alterar dados reais e reviso o resultado em amostras.</p></div>
       <div class="step"><h3>Colocar no ar e medir</h3><p>Publico, acompanho o uso e decido o próximo passo pelo que os números mostram, inclusive custo.</p></div>
     </div>
   </section>
@@ -239,10 +239,10 @@ footer h2{font-family:var(--serif);font-weight:400;font-size:clamp(34px,5vw,56px
 
     <article class="case feature">
       <div>
-        <div class="case-top"><span class="badge warn">POC em avaliação</span><span class="badge">Assurance IT</span><span class="mono">02</span></div>
+        <div class="case-top"><span class="badge ok">Validado · em uso</span><span class="badge">Assurance IT</span><span class="mono">02</span></div>
         <h3>Banco de Talentos com busca por vaga</h3>
         <p class="one">Anos de currículos soltos em pastas viraram um banco pesquisável que indica os candidatos mais aderentes a cada vaga.</p>
-        <div class="result"><b>"ótima POC"</b><span>avaliação da gestão, que repassou as fichas às recrutadoras</span></div>
+        <div class="result"><b>Em uso</b><span>validado pela gestão e usado pelas recrutadoras para encontrar candidatos para as vagas</span></div>
         <dl>
           <div><dt>Problema</dt><dd>Dezenas de milhares de currículos em PDF e Word, com cópias, versões antigas e anotações internas misturadas. Nenhuma forma de cruzar a base com uma vaga aberta.</dd></div>
           <div><dt>O que construí</dt><dd>Conversão e carga no PostgreSQL, deduplicação em 3 camadas, extração de competências por regras, área interna para dados confidenciais e uma pontuação vaga–candidato que gera fichas com os 5 mais aderentes.</dd></div>
@@ -293,9 +293,9 @@ footer h2{font-family:var(--serif);font-weight:400;font-size:clamp(34px,5vw,56px
       </div>
       <div>
         <dl>
-          <div><dt>Papel da IA</dt><dd>Lovable para implementar. Cada pedido vira uma especificação com contexto, regras de negócio, permissões, o que não pode mudar e critérios de aceite.</dd></div>
+          <div><dt>Papel da IA</dt><dd>Lovable para implementar as funcionalidades; Codex e Claude Code para ajustes no código, migrações de banco e problemas no Supabase. Cada pedido vira uma especificação com contexto, regras de negócio, permissões, o que não pode mudar e critérios de aceite.</dd></div>
         </dl>
-        <div class="chips"><span class="chip">Lovable</span><span class="chip">Supabase</span><span class="chip">Regras de negócio</span><span class="chip">Controle de acesso</span><span class="chip">Testes funcionais</span></div>
+        <div class="chips"><span class="chip">Lovable</span><span class="chip">Codex</span><span class="chip">Claude Code</span><span class="chip">Supabase</span><span class="chip">Regras de negócio</span><span class="chip">Controle de acesso</span><span class="chip">Testes funcionais</span></div>
         <p class="private">Plataformas internas: sem telas ou dados públicos.</p>
       </div>
     </article>
@@ -339,8 +339,8 @@ footer h2{font-family:var(--serif);font-weight:400;font-size:clamp(34px,5vw,56px
       <div><h2>Ferramentas que uso</h2></div>
     </div>
     <div class="stack">
-      <div class="col"><h3>Construir com IA</h3><ul><li>Lovable</li><li>Claude</li><li>ChatGPT e GPTs customizados</li><li>APIs da OpenAI e da Anthropic</li></ul></div>
-      <div class="col"><h3>Automação e back-end</h3><ul><li>n8n</li><li>Supabase · Edge Functions</li><li>APIs REST e webhooks</li><li>Google Apps Script</li></ul></div>
+      <div class="col"><h3>Construir com IA</h3><ul><li>Lovable</li><li>Claude Code e Codex</li><li>Claude, ChatGPT e GPTs customizados</li><li>APIs da OpenAI e da Anthropic</li></ul></div>
+      <div class="col"><h3>Código e automação</h3><ul><li>JavaScript · Java · C/C++</li><li>n8n</li><li>Supabase · Edge Functions</li><li>APIs REST e webhooks</li><li>Google Apps Script</li></ul></div>
       <div class="col"><h3>Dados</h3><ul><li>Python</li><li>SQL · PostgreSQL</li><li>Power BI · ETL</li><li>Machine learning</li></ul></div>
       <div class="col"><h3>Produto e negócio</h3><ul><li>Requisitos e regras de negócio</li><li>Testes funcionais</li><li>Pagamentos (Mercado Pago, Kiwify)</li><li>Segurança de dados e LGPD</li></ul></div>
     </div>
@@ -354,6 +354,7 @@ footer h2{font-family:var(--serif);font-weight:400;font-size:clamp(34px,5vw,56px
         <div><span>Atual</span><span>Desenvolvedor Júnior, Assurance IT</span></div>
         <div><span>Formação</span><span>Ciência de Dados e IA, PUC Minas</span></div>
         <div><span>Conclusão prevista</span><span>dez/2028</span></div>
+        <div><span>Inglês</span><span>B2 · Cambridge Linguaskill</span></div>
         <div><span>Base</span><span>Belo Horizonte, MG</span></div>
       </div>
     </div>
